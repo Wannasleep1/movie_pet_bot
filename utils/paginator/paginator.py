@@ -2,7 +2,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.callback_data import CallbackData
 
 
-pagination_call = CallbackData("paginator", "key", "page")
+pagination_call = CallbackData("paginator", "key", "page", "total_pages")
 
 
 def get_reply_markup(current_page, total_pages, key):
@@ -16,7 +16,8 @@ def get_reply_markup(current_page, total_pages, key):
             InlineKeyboardButton(
                 text=first_page_text,
                 callback_data=pagination_call.new(key=key,
-                                                  page=1)
+                                                  page=1,
+                                                  total_pages=total_pages)
             )
         )
 
@@ -27,7 +28,8 @@ def get_reply_markup(current_page, total_pages, key):
             InlineKeyboardButton(
                 text=previous_page_text,
                 callback_data=pagination_call.new(key=key,
-                                                  page=previous_page)
+                                                  page=previous_page,
+                                                  total_pages=total_pages)
             )
         )
 
@@ -35,7 +37,8 @@ def get_reply_markup(current_page, total_pages, key):
         InlineKeyboardButton(
             text=f"- {current_page} -",
             callback_data=pagination_call.new(key=key,
-                                              page=current_page)
+                                              page=current_page,
+                                              total_pages=total_pages)
         )
     )
 
@@ -46,7 +49,8 @@ def get_reply_markup(current_page, total_pages, key):
             InlineKeyboardButton(
                 text=next_page_text,
                 callback_data=pagination_call.new(key=key,
-                                                  page=next_page)
+                                                  page=next_page,
+                                                  total_pages=total_pages)
             )
         )
 
@@ -55,7 +59,8 @@ def get_reply_markup(current_page, total_pages, key):
             InlineKeyboardButton(
                 text=max_page_text,
                 callback_data=pagination_call.new(key=key,
-                                                  page=total_pages)
+                                                  page=total_pages,
+                                                  total_pages=total_pages)
             )
         )
 
