@@ -1,4 +1,4 @@
-import requests
+import aiohttp
 from aiogram import types
 from aiogram.dispatcher.filters import Text
 
@@ -24,13 +24,15 @@ def _get_movies_top_params(type_, page):
     }
 
 
-def _get_data_for_paginating(callback_data):
+async def _get_data_for_paginating(callback_data: dict):
     page = int(callback_data.get("page"))
     param_type = callback_data.get("key")
     total_pages = int(callback_data.get("total_pages"))
     params = _get_movies_top_params(param_type, page)
-    data = requests.get(URL, params=params, headers=HEADERS).json()["films"]
-    movie_data = movie_data_parser(data, page)
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL, params=params, headers=HEADERS) as resp:
+            data = await resp.json()
+    movie_data = movie_data_parser(data["films"], page)
     reply_markup = get_reply_markup(page, total_pages, key=param_type)
     return movie_data, reply_markup
 
@@ -41,7 +43,9 @@ def _get_data_for_paginating(callback_data):
                           ]))
 async def get_movies_top(message: types.Message):
     params = _get_movies_top_params(AVAILABLE_CMDS[message.text], 1)
-    data_dict = requests.get(URL, params=params, headers=HEADERS).json()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL, params=params, headers=HEADERS) as resp:
+            data_dict = await resp.json()
     total_pages = data_dict["pagesCount"]
     data = data_dict["films"]
     movie_data = movie_data_parser(data, 1)
@@ -51,7 +55,7 @@ async def get_movies_top(message: types.Message):
 
 @dp.callback_query_handler(pagination_call.filter(key="TOP_250_BEST_FILMS"))
 async def get_movies_top_250_page(callback: types.CallbackQuery, callback_data: dict):
-    movie_data, reply_markup = _get_data_for_paginating(callback_data)
+    movie_data, reply_markup = await _get_data_for_paginating(callback_data)
     await callback.message.answer(movie_data, reply_markup=reply_markup)
     await callback.message.delete()
     await callback.answer()
@@ -59,7 +63,7 @@ async def get_movies_top_250_page(callback: types.CallbackQuery, callback_data: 
 
 @dp.callback_query_handler(pagination_call.filter(key="TOP_100_POPULAR_FILMS"))
 async def get_movies_top_100_popular_page(callback: types.CallbackQuery, callback_data: dict):
-    movie_data, reply_markup = _get_data_for_paginating(callback_data)
+    movie_data, reply_markup = await _get_data_for_paginating(callback_data)
     await callback.message.answer(movie_data, reply_markup=reply_markup)
     await callback.message.delete()
     await callback.answer()
@@ -67,7 +71,7 @@ async def get_movies_top_100_popular_page(callback: types.CallbackQuery, callbac
 
 @dp.callback_query_handler(pagination_call.filter(key="TOP_AWAIT_FILMS"))
 async def get_movies_top_100_popular_page(callback: types.CallbackQuery, callback_data: dict):
-    movie_data, reply_markup = _get_data_for_paginating(callback_data)
+    movie_data, reply_markup = await _get_data_for_paginating(callback_data)
     await callback.message.answer(movie_data, reply_markup=reply_markup)
     await callback.message.delete()
     await callback.answer()

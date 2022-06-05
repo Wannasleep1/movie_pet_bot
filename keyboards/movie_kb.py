@@ -20,5 +20,7 @@ movies_top_kb.add(
 ).add(
     KeyboardButton(text="Топ ожидаемых фильмов")
 ).add(
+    KeyboardButton(text="Выбрать фильм по ID"),
+).add(
     KeyboardButton(text="Вернуться в начало"),
 )
