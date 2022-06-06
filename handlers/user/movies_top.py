@@ -3,6 +3,7 @@ from aiogram import types
 from aiogram.dispatcher.filters import Text
 
 from config.config import HEADERS
+from keyboards.movie_kb import movies_top_kb, tops_kb
 from loader import dp
 from utils.url_generator import get_api_url
 from utils.movie_data_parser import movie_data_parser
@@ -35,6 +36,16 @@ async def _get_data_for_paginating(callback_data: dict):
     movie_data = movie_data_parser(data["films"], page)
     reply_markup = get_reply_markup(page, total_pages, key=param_type)
     return movie_data, reply_markup
+
+
+@dp.message_handler(Text("Вывести топ фильмов"))
+async def movies_top(message: types.Message):
+    await message.answer(text="Выберите один из вариантов", reply_markup=movies_top_kb)
+
+
+@dp.message_handler(Text("Топы"))
+async def movies_top(message: types.Message):
+    await message.answer(text="Выберите один из топов", reply_markup=tops_kb)
 
 
 @dp.message_handler(Text(["Топ 250 лучших фильмов",

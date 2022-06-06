@@ -49,4 +49,3 @@ class ThrottlingMiddleware(BaseMiddleware):
 
         if thr.exceeded_count == throttled.exceeded_count:
             await message.reply("Вы разблокированы.")
-

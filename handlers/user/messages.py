@@ -19,14 +19,6 @@ async def _help(message: types.Message):
     await message.answer(text)
 
 
-@dp.message_handler(Text("Вывести топ фильмов"))
-async def movies_top(message: types.Message, page_=1):
-    await message.answer(text="Выберите нужный топ", reply_markup=movies_top_kb)
-
-
 @dp.message_handler(Text("Вернуться в начало"))
-async def go_back(message: types.Message):
+async def go_back_to_initial(message: types.Message):
     await message.answer(text="Возвращаемся...", reply_markup=initial_kb)
-
-
-
