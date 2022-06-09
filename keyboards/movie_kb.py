@@ -8,6 +8,8 @@ initial_kb.add(
     KeyboardButton(text="Вывести кинопремьеры"),
 ).add(
     KeyboardButton(text="Найти фильм по фильтрам"),
+).add(
+    KeyboardButton(text="Выбрать фильм по ID"),
 )
 
 
@@ -40,4 +42,6 @@ premieres_kb.add(
     KeyboardButton(text="Премьеры по фильтру"),
 ).add(
     KeyboardButton(text="Выбрать фильм по ID"),
+).add(
+    KeyboardButton(text="Вернуться в начало"),
 )

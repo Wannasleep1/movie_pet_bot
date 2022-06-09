@@ -5,12 +5,11 @@ from aiogram.utils.callback_data import CallbackData
 pagination_call = CallbackData("paginator", "key", "page", "total_pages")
 
 
-def get_reply_markup(current_page, total_pages, key):
+def get_reply_markup(current_page, total_pages, key, data=-1):
     markup = InlineKeyboardMarkup(row_width=5)
 
     first_page_text = "<< 1"
     max_page_text = f"{total_pages} >>"
-
     if current_page > 1:
         markup.insert(
             InlineKeyboardButton(
