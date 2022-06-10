@@ -12,7 +12,7 @@ from utils.paginator.paginator import get_reply_markup, pagination_call
 
 AVAILABLE_CMDS = {
     "Топ 250 лучших фильмов": "TOP_250_BEST_FILMS",
-    "Топ 100 популярных фильмов": "TOP_100_POPULAR_FILMS",
+    "Топ популярных фильмов": "TOP_100_POPULAR_FILMS",
     "Топ ожидаемых фильмов": "TOP_AWAIT_FILMS",
 }
 URL = get_api_url("movies_top")
@@ -49,7 +49,7 @@ async def movies_top(message: types.Message):
 
 
 @dp.message_handler(Text(["Топ 250 лучших фильмов",
-                          "Топ 100 популярных фильмов",
+                          "Топ популярных фильмов",
                           "Топ ожидаемых фильмов",
                           ]))
 async def get_movies_top(message: types.Message):

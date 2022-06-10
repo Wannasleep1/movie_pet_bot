@@ -5,6 +5,7 @@ suffixes = {
     "movies_top": "v2.2/films/top",
     "premieres": "v2.2/films/premieres",
     "base": "v2.2/films/",
+    "countries_genres": "v2.2/films/filters",
 }
 
 

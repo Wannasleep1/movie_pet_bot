@@ -59,10 +59,10 @@ async def get_premieres_state_finish(message: types.Message, state: FSMContext):
     url = get_api_url("premieres")
     async with aiohttp.ClientSession() as session:
         async with session.get(url, params=params, headers=HEADERS) as resp:
-            loaded_date = await resp.json()
+            loaded_data = await resp.json()
 
     global ALL_MOVIES_PREMIERES_DATA
-    ALL_MOVIES_PREMIERES_DATA = loaded_date["items"]
+    ALL_MOVIES_PREMIERES_DATA = loaded_data["items"]
 
     total_pages = (len(ALL_MOVIES_PREMIERES_DATA) + 9) // 10
     markup = get_reply_markup(1, total_pages, "PREMIERES_FILTERED")

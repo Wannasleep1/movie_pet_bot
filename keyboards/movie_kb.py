@@ -27,7 +27,7 @@ tops_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 tops_kb.add(
     KeyboardButton(text="Топ 250 лучших фильмов"),
 ).add(
-    KeyboardButton(text="Топ 100 популярных фильмов"),
+    KeyboardButton(text="Топ популярных фильмов"),
 ).add(
     KeyboardButton(text="Топ ожидаемых фильмов"),
 ).add(
