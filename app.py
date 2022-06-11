@@ -1,7 +1,7 @@
 from aiogram.utils.executor import start_polling
 
 from loader import dp
-import middlewares, filters, handlers
+import middlewares, handlers
 from utils.notify_admins import notify_admins
 from utils.set_default_commands import set_default_commands
 

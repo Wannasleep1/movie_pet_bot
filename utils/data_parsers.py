@@ -41,7 +41,7 @@ def parse_single_movie(data):
             f"<u>Название (ориг.)</u>: {'Отсутствует' if not data['nameOriginal'] else data['nameOriginal']}\n"
             f"<u>Описание</u>: {data['description']}\n"
             f"<u>Год выпуска</u>: {data['year']}\n"
-            f"<u>Длительность</u>: duration\n"
+            f"<u>Длительность</u>: {duration}\n"
             f"<u>Жанры</u>: {', '.join([item['genre'] for item in data['genres']])}\n"
             f"<u>Страны</u>: {', '.join([item['country'] for item in data['countries']])}\n"
             f"<u>Оценка на Kinopoisk</u>: {data['ratingKinopoisk']}\n"
