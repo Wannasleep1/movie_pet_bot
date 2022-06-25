@@ -55,7 +55,7 @@ async def get_premieres_state_finish(message: types.Message, state: FSMContext):
         month = message.text
         await state.finish()
 
-    params = _get_premieres_params(year, MONTHS[month])
+    params = _get_premieres_params(year, MONTHS[month.lower()])
     url = get_api_url("premieres")
     async with aiohttp.ClientSession() as session:
         async with session.get(url, params=params, headers=HEADERS) as resp:
